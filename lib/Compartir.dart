@@ -78,7 +78,12 @@ class _CompartirState extends State<Compartir> {
         final result = await Process.run(
             'flutter', ['pub', 'run', 'flutter_build_helper:main', ...args]);
         final File tempFile = File(apkPath); // Obtener archivo APK generado
-        Share.shareFiles([tempFile.path], text: 'Compartir aplicación');
+        await SharePlus.instance.share(
+          ShareParams(
+            files: [XFile(tempFile.path)],
+            text: 'Compartir aplicación',
+          ),
+        );
         // resto del código
       } catch (e) {
         print('NO SE GENERA EL APK: $e');
@@ -92,17 +97,19 @@ class _CompartirState extends State<Compartir> {
     final ByteData bytes = await rootBundle.load('assets/apk/MuseoDelYaqui.apk');
     final File tempFile = await _localFile;
     await tempFile.writeAsBytes(bytes.buffer.asUint8List(), flush: true);
-    Share.shareFiles([tempFile.path], text: 'Great picture');
+    await SharePlus.instance.share(
+      ShareParams(files: [XFile(tempFile.path)], text: 'Great picture'),
+    );
   }
 
 
   void _sharePlayStoreLink() {
     final String playStoreLink = 'https://play.google.com/store/apps/details?id=com.redescubramossonora.museo';
-    Share.share(playStoreLink);
+    SharePlus.instance.share(ShareParams(text: playStoreLink));
   }
   void _shareAppStoreLink() {
     final String AppStoreLink = 'https://apps.apple.com/mx/app/museo-de-los-yaquis/id6475923789';
-    Share.share(AppStoreLink);
+    SharePlus.instance.share(ShareParams(text: AppStoreLink));
   }
 
   @override
