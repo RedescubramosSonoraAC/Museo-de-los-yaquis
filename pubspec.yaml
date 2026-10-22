@@ -108,6 +108,11 @@ flutter:
     - assets/W/
     - assets/images/
     - assets/guia/
+    - assets/exposiciones/cosmovision/
+    - assets/exposiciones/religiosidad/
+    - assets/exposiciones/danza_musica/
+    - assets/exposiciones/celebraciones_religiosas/
+    - assets/exposiciones/gobierno/
     #- build/app/outputs/flutter-apk/app-release.apk
     #- assets/apk/
 

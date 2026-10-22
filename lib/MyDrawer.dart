@@ -208,6 +208,66 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ),
           ),
+          ExpansionTile(
+            leading: const Icon(Icons.auto_stories),
+            title: Text(
+              'Exposiciones',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 17 + tam_letra,
+              ),
+            ),
+            children: [
+              ListTile(
+                contentPadding: const EdgeInsets.only(left: 56, right: 16),
+                title: const Text('Cosmovisión'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/exposiciones/cosmovision');
+                },
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.only(left: 56, right: 16),
+                title: const Text('Religiosidad'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/exposiciones/religiosidad');
+                },
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.only(left: 56, right: 16),
+                title: const Text('Danza y música'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/exposiciones/danza-musica');
+                },
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.only(left: 56, right: 16),
+                title: const Text('Celebraciones religiosas'),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/exposiciones/celebraciones-religiosas',
+                  );
+                },
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.only(left: 56, right: 16),
+                title: const Text('Gobierno'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/exposiciones/gobierno');
+                },
+              ),
+              for (final category in const [
+                'Medicina tradicional',
+                'Vida cotidiana',
+              ])
+                ListTile(
+                  contentPadding: const EdgeInsets.only(left: 56, right: 16),
+                  title: Text(category),
+                  subtitle: const Text('Contenido pendiente'),
+                  enabled: false,
+                ),
+            ],
+          ),
           ListTile(
             title: Text(
               "Explorar Museo 360°",

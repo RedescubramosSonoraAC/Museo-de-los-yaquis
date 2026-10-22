@@ -12,6 +12,7 @@ import 'DataSearch.dart';
 import 'SplashScreen.dart';
 import 'ThemeChanger.dart';
 import 'package:provider/provider.dart';
+import 'Exposiciones.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,6 +37,12 @@ void main() {
       '/contacto': (context) => Contacto(tam_letra),
       '/acercaDe': (context) => AcercaDe(tam_letra),
       '/ayuda': (context) => ayuda(tam_letra),
+      '/exposiciones/cosmovision': (context) => const CosmovisionPage(),
+      '/exposiciones/religiosidad': (context) => const ReligiosidadPage(),
+      '/exposiciones/danza-musica': (context) => const DanzaMusicaPage(),
+      '/exposiciones/celebraciones-religiosas': (context) =>
+          const CelebracionesReligiosasPage(),
+      '/exposiciones/gobierno': (context) => const GobiernoPage(),
     },
     onUnknownRoute: (settings) {
       print('ERROR: no se encuentra ${settings.name}');
@@ -100,6 +107,14 @@ class MyApp extends StatelessWidget {
               '/contacto': (context) => Contacto(tam_letra),
               '/acercaDe': (context) => AcercaDe(tam_letra),
               '/ayuda': (context) => ayuda(tam_letra),
+              '/exposiciones/cosmovision': (context) => const CosmovisionPage(),
+              '/exposiciones/religiosidad': (context) =>
+                  const ReligiosidadPage(),
+              '/exposiciones/danza-musica': (context) =>
+                  const DanzaMusicaPage(),
+              '/exposiciones/celebraciones-religiosas': (context) =>
+                  const CelebracionesReligiosasPage(),
+              '/exposiciones/gobierno': (context) => const GobiernoPage(),
             },
             onUnknownRoute: (settings) {
               print('ERROR: no se encuentra ${settings.name}');
@@ -140,8 +155,6 @@ class _MyHomePageState extends State<MyHomePage>
     //(_checkStoragePermission();
   }
 
-
-
   @override
   void dispose() {
     _controller.dispose();
@@ -155,12 +168,11 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {});
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title,style: TextStyle( color: primarySwatch[1000])),
+        title: Text(widget.title, style: TextStyle(color: primarySwatch[1000])),
         backgroundColor: primarySwatch,
-
         actions: [
           IconButton(
-            icon: const Icon(Icons.search,color: Colors.white),
+            icon: const Icon(Icons.search, color: Colors.white),
             onPressed: () {
               Navigator.push(
                 context,
@@ -175,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage>
             },
           ),
           IconButton(
-            icon: const Icon(Icons.nightlight_round,color: Colors.white),
+            icon: const Icon(Icons.nightlight_round, color: Colors.white),
             onPressed: () {
               themeChanger.toggleTheme(); // Cambiar el tema al hacer click
             },
@@ -205,28 +217,29 @@ class _MyHomePageState extends State<MyHomePage>
         Tab(
           child: Text(
             'Jaik Noki',
-            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
         ),
         Tab(
           child: Text(
             'Español',
-            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
         ),
         Tab(
           child: Text(
             'English',
-            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
         ),
       ],
       controller: _controller,
       indicator: BoxDecoration(color: primarySwatch[400]),
       labelColor: Colors.white, // Color del texto de la pestaña activa
-      unselectedLabelColor: Colors.white.withOpacity(0.7), // Color del texto de las pestañas inactivas
+      unselectedLabelColor: Colors.white
+          .withOpacity(0.7), // Color del texto de las pestañas inactivas
       indicatorWeight: 4.0,
-      indicatorSize: TabBarIndicatorSize.tab,// Ajusta el grosor del indicador
+      indicatorSize: TabBarIndicatorSize.tab, // Ajusta el grosor del indicador
     );
   }
 
@@ -234,12 +247,9 @@ class _MyHomePageState extends State<MyHomePage>
     return TabBarView(
       children: displays,
       controller: _controller,
-
     );
   }
 }
-
-
 
 class FirstTimeScreen extends StatefulWidget {
   @override
@@ -274,8 +284,10 @@ class _FirstTimeScreenState extends State<FirstTimeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('¡Bienvenido a tu primera vez en la app del Museo de los Yaquis!'),
-          content: Text('Si eres nuevo o deseas aprender más sobre la app, te invitamos a'
+          title: Text(
+              '¡Bienvenido a tu primera vez en la app del Museo de los Yaquis!'),
+          content: Text(
+              'Si eres nuevo o deseas aprender más sobre la app, te invitamos a'
               ' explorar la sección de ayuda. Allí encontrarás guías detalladas para aprovechar '
               'al máximo la aplicación. ¡No dudes en consultarla para resolver tus preguntas y '
               'sacar el máximo provecho de la experiencia con nuestra app'),
@@ -284,16 +296,17 @@ class _FirstTimeScreenState extends State<FirstTimeScreen> {
               onPressed: () {
                 Navigator.of(context).pop(); // Cierra el diálogo
               },
-              child: Text('Cerrar',style: TextStyle(color: Colors.black)),
+              child: Text('Cerrar', style: TextStyle(color: Colors.black)),
             ),
             TextButton(
               onPressed: () {
                 Future.delayed(Duration.zero, () {
-                  Navigator.pop(context); // Cierra el diálogo (si aún está abierto)
+                  Navigator.pop(
+                      context); // Cierra el diálogo (si aún está abierto)
                   Navigator.pushNamed(context, '/ayuda');
                 });
               },
-              child: Text('Ir a ayuda',style: TextStyle(color: Colors.black)),
+              child: Text('Ir a ayuda', style: TextStyle(color: Colors.black)),
             ),
           ],
         );
@@ -306,9 +319,3 @@ class _FirstTimeScreenState extends State<FirstTimeScreen> {
     return MyHomePage(title: 'Museo de los Yaquis');
   }
 }
-
-
-
-
-
-
