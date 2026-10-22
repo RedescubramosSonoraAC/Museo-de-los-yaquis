@@ -43,6 +43,8 @@ void main() {
       '/exposiciones/celebraciones-religiosas': (context) =>
           const CelebracionesReligiosasPage(),
       '/exposiciones/gobierno': (context) => const GobiernoPage(),
+      '/exposiciones/medicina-tradicional': (context) =>
+          const MedicinaTradicionalPage(),
     },
     onUnknownRoute: (settings) {
       print('ERROR: no se encuentra ${settings.name}');
@@ -115,6 +117,8 @@ class MyApp extends StatelessWidget {
               '/exposiciones/celebraciones-religiosas': (context) =>
                   const CelebracionesReligiosasPage(),
               '/exposiciones/gobierno': (context) => const GobiernoPage(),
+              '/exposiciones/medicina-tradicional': (context) =>
+                  const MedicinaTradicionalPage(),
             },
             onUnknownRoute: (settings) {
               print('ERROR: no se encuentra ${settings.name}');

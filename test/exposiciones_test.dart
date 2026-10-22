@@ -828,4 +828,201 @@ void main() {
     expect(find.text('Celebraciones religiosas'), findsNWidgets(2));
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('muestra Medicina tradicional con contenido e imágenes',
+      (tester) async {
+    tester.view.physicalSize = const Size(400, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      const MaterialApp(home: MedicinaTradicionalPage()),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Medicina tradicional'), findsNWidgets(2));
+    expect(
+      find.textContaining(
+        'Para los Yaquis la enfermedad es un desequilibrio entre',
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.textContaining(
+          'Un ejemplo fundamental para curar este desequilibrio'),
+      findsOneWidget,
+    );
+    expect(
+      find.textContaining('han sido trasmitidos mediate la práctica'),
+      findsOneWidget,
+    );
+    expect(
+      find.textContaining('el lado derecho del cuerpo que van a sanar'),
+      findsOneWidget,
+    );
+    expect(find.text('Choya'), findsNWidgets(2));
+    expect(find.text('Ocotillo'), findsNWidgets(2));
+    expect(find.text('Mezquite'), findsNWidgets(2));
+
+    const imageNames = [
+      'cosmogonia_yaqui.jpg',
+      'Tipico-altar-yaqui.jpg',
+      'curandera.jpg',
+      'Choya.jpg',
+      'Ocotillo.jpg',
+      'Mezquite.jpg',
+      'Vinorama.jpg',
+      'Sangregado.jpg',
+      'Barchata.jpg',
+      'Semilla-de-guasima.jpg',
+      'Rama-cenizo.jpg',
+      'Fruto-de-sibiri.jpg',
+      'Nono.jpg',
+      'Rocio.jpg',
+      'Torote-prieto.jpg',
+      'Batamote.jpg',
+      'Wereke.jpg',
+      'Chicura.jpg',
+    ];
+
+    final scrollable = find.byType(Scrollable).first;
+    var previousScrollOffset = double.negativeInfinity;
+    for (final imageName in imageNames) {
+      final image = find.image(
+        AssetImage(
+          'assets/exposiciones/medicina_tradicional/$imageName',
+        ),
+      );
+      await tester.scrollUntilVisible(
+        image,
+        450,
+        scrollable: scrollable,
+      );
+      await tester.pumpAndSettle();
+      expect(image, findsOneWidget, reason: imageName);
+      final scrollOffset =
+          tester.state<ScrollableState>(scrollable).position.pixels;
+      expect(
+        scrollOffset,
+        greaterThanOrEqualTo(previousScrollOffset),
+        reason: '$imageName appears in the specified order',
+      );
+      previousScrollOffset = scrollOffset;
+    }
+
+    for (final check in [
+      'Algunas plantas de uso herbolario utilizadas por la tribu Yaqui',
+      '1. La raíz sirve para curar el Dolor de riñón',
+      '2. Disentería:',
+      'Sarna:',
+      '1. Dolor de muelas. –',
+      '2. Nauseas.-',
+      '/ Autor Julio Hernández Correa. En la cosmovisión yaqui el equilibrio '
+          'abarca desde lo espiritual hasta lo físico. Museo Étnico de los '
+          'Yaquis. Sala Cosmovisión. Fotógrafo: Juan Casanova.',
+      'Prosopis velutina (Wooton) o mezquite. Fuente: Renatura Sonora. '
+          'Fotógrafo: Narciso Navarro.',
+      'Típico altar en casa de un curandero yaqui.',
+      'Curandera. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Choya. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Vinorama. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Sangregado. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Barchata. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Semilla de guásima. Museo Étnico de los Yaquis. Sala Medicina '
+          'tradicional. Fotógrafo: Juan Casanova',
+      'Rama cenizo. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Fruto de sibiri. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Torote prieto. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Batamote. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Wereke. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Chicura. Museo Étnico de los Yaquis. Sala Medicina tradicional. '
+          'Fotógrafo: Juan Casanova',
+      'Sala Cosmovisión. Fotógrafo: Juan Casanova.',
+      'Nóno. Museo Étnico de los Yaquis.',
+      'Rocío. Museo Étnico de los Yaquis.',
+    ]) {
+      final finder = find.textContaining(check);
+      await tester.scrollUntilVisible(
+        finder,
+        400,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
+      expect(finder, findsOneWidget, reason: check);
+    }
+
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('abre Medicina tradicional desde el menú', (tester) async {
+    tester.view.physicalSize = const Size(400, 1000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      ChangeNotifierProvider(
+        create: (_) => ThemeChanger(ThemeData()),
+        child: MaterialApp(
+          routes: {
+            '/exposiciones/medicina-tradicional': (context) =>
+                const MedicinaTradicionalPage(),
+          },
+          home: Scaffold(
+            appBar: AppBar(),
+            drawer: MyDrawer(),
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.byTooltip('Open navigation menu'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Exposiciones'));
+    await tester.pumpAndSettle();
+    final medicineTile = find.text('Medicina tradicional');
+    await tester.scrollUntilVisible(
+      medicineTile,
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(medicineTile);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Medicina tradicional'), findsNWidgets(2));
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('limita el tamaño del altar vertical en pantallas amplias',
+      (tester) async {
+    tester.view.physicalSize = const Size(1400, 1000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      const MaterialApp(home: MedicinaTradicionalPage()),
+    );
+    await tester.pumpAndSettle();
+
+    final altarImage = find.image(
+      const AssetImage(
+        'assets/exposiciones/medicina_tradicional/Tipico-altar-yaqui.jpg',
+      ),
+    );
+    expect(tester.getRect(altarImage).width, lessThanOrEqualTo(240));
+    expect(tester.getRect(altarImage).height, lessThanOrEqualTo(500));
+    expect(tester.takeException(), isNull);
+  });
 }

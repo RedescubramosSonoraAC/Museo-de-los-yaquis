@@ -113,6 +113,7 @@ flutter:
     - assets/exposiciones/danza_musica/
     - assets/exposiciones/celebraciones_religiosas/
     - assets/exposiciones/gobierno/
+    - assets/exposiciones/medicina_tradicional/
     #- build/app/outputs/flutter-apk/app-release.apk
     #- assets/apk/
 

@@ -256,8 +256,17 @@ class _MyDrawerState extends State<MyDrawer> {
                   Navigator.pushNamed(context, '/exposiciones/gobierno');
                 },
               ),
+              ListTile(
+                contentPadding: const EdgeInsets.only(left: 56, right: 16),
+                title: const Text('Medicina tradicional'),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/exposiciones/medicina-tradicional',
+                  );
+                },
+              ),
               for (final category in const [
-                'Medicina tradicional',
                 'Vida cotidiana',
               ])
                 ListTile(

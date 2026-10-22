@@ -1922,7 +1922,7 @@ class _ExhibitionFigure {
 
   final String title;
   final String asset;
-  final String caption;
+  final String? caption;
   final double? maxWidth;
 }
 
@@ -1957,11 +1957,13 @@ class _ExhibitionImage extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            figure.caption,
-            style: theme.textTheme.bodySmall?.copyWith(height: 1.4),
-          ),
+          if (figure.caption != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              figure.caption!,
+              style: theme.textTheme.bodySmall?.copyWith(height: 1.4),
+            ),
+          ],
         ],
       ),
     );
@@ -3296,6 +3298,281 @@ class _CelebracionesCitation extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
               decoration: TextDecoration.underline,
             ),
+      ),
+    );
+  }
+}
+
+class MedicinaTradicionalPage extends StatelessWidget {
+  const MedicinaTradicionalPage({super.key});
+
+  static Widget _paragraph(String text) => _NarrativeParagraph.text(text: text);
+
+  static Widget _image(
+    String filename,
+    String title,
+    String? caption,
+  ) {
+    return _ExhibitionImage(
+      figure: _ExhibitionFigure(
+        title: title,
+        asset: 'assets/exposiciones/medicina_tradicional/$filename',
+        caption: caption,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Medicina tradicional')),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(20, 24, 20, 40),
+        children: [
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1000),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Exposición',
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: theme.colorScheme.primary,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Medicina tradicional',
+                    style: theme.textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 16),
+                  _paragraph(
+                    'Para los Yaquis la enfermedad es un desequilibrio entre '
+                    'el individuo y su relación con la divinidad, los espíritus, '
+                    'la naturaleza y con la comunidad que lo rodea; el primer '
+                    'impulso de la familia o allegado a un enfermo es buscar '
+                    'esta estabilidad del organismo, aplicando ritos y '
+                    'medicamentos naturales que pueden detener los causales '
+                    'de la enfermedad o en su caso sanar.',
+                  ),
+                  _image(
+                    'cosmogonia_yaqui.jpg',
+                    '“Cosmogonía Yaqui”',
+                    '/ Autor Julio Hernández Correa. En la cosmovisión yaqui '
+                        'el equilibrio abarca desde lo espiritual hasta lo '
+                        'físico. Museo Étnico de los Yaquis. Sala Cosmovisión. '
+                        'Fotógrafo: Juan Casanova.',
+                  ),
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 240),
+                      child: _image(
+                        'Tipico-altar-yaqui.jpg',
+                        'Típico altar yaqui',
+                        'Típico altar en casa de un curandero yaqui. Museo '
+                            'Étnico de los Yaquis. Sala Medicina tradicional. '
+                            'Fotógrafo: Juan Casanova',
+                      ),
+                    ),
+                  ),
+                  _paragraph(
+                    'Un ejemplo fundamental para curar este desequilibrio es '
+                    'el uso de promesas o «mandas» que se imponen a la persona '
+                    'enferma. Una de estas mandas es persignar al enfermo como '
+                    'caballero dentro de los cargos que se desarrollan en la '
+                    'celebración de la Cuaresma, esto lo hacen con el objetivo '
+                    'de ofrecerle a Dios una penitencia para que lo salve. La '
+                    'manda durará toda la vida si es muy grave la enfermedad.',
+                  ),
+                  _paragraph(
+                    'La permanencia actual de la medicina tradicional es una '
+                    'práctica protegida por la iglesia yaqui y por las '
+                    'autoridades tradicionales. La interacción entre la '
+                    'naturaleza, religión y organización social permite la '
+                    'reproducción del sistema médico y su práctica es un '
+                    'elemento primordial de unión a través del tiempo.',
+                  ),
+                  _paragraph(
+                    'Todos los conocimientos de medicina tradicional han sido '
+                    'trasmitidos mediate la práctica por generaciones y en '
+                    'otros casos por mandato divino, mediante sucesos '
+                    'sobrenaturales, similares a la adquisición de dones como '
+                    'la danza o música.',
+                  ),
+                  _image(
+                    'curandera.jpg',
+                    'Curandera',
+                    'Curandera. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _paragraph(
+                    'La medicina tradicional utilizada por la tribu se divide '
+                    'en dos grandes grupos: la casera y la especializada. La '
+                    'medicina casera es el conocimiento práctico que se tiene '
+                    'de la herbolaria con una serie de clasificaciones de las '
+                    'plantas según sus cualidades, diferenciándolas de la '
+                    'siguiente manera: frías-calientes, amargas-dulces, '
+                    'rojas-blancas, buenas-malas, etc.',
+                  ),
+                  _paragraph(
+                    'La medicina tradicional de especialistas la realizan '
+                    'terapeutas yaquis con conocimientos mágico-religiosos de '
+                    'las enfermedades. Se clasifica en tres campos: el natural, '
+                    'el psico-religioso y el sobrenatural. Los especialistas '
+                    'en este tipo de medicina son: curanderos, hierberos, '
+                    'espiritistas, parteras, sobadores de escurrimientos, de '
+                    'mollera y de tripa ida, hueseros y espirituales. Los '
+                    'jitébim «curanderos», tocan primero el lado derecho del '
+                    'cuerpo que van a sanar; la razón, es porque ese lado '
+                    'corresponde al bien en el cuerpo humano, mientras que el '
+                    'lado izquierdo, es del mal. Existen jitebim que utilizan '
+                    'plantas, animales y minerales como recursos terapéuticos; '
+                    'otros solamente emplean vegetales mezclados con cantos, '
+                    'alabanzas y rezos.',
+                  ),
+                  const _SectionHeading(
+                    'Algunas plantas de uso herbolario utilizadas por la tribu Yaqui',
+                  ),
+                  _image(
+                    'Choya.jpg',
+                    'Choya',
+                    'Choya. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  const _SectionHeading('Choya'),
+                  _paragraph(
+                    'Es una cactácea que prolifera en la zona serrana y valle '
+                    'del territorio yaqui. Crece a una altura de dos o tres '
+                    'metros, tiene un color verde grisáceo, se da en tiempo '
+                    'de lluvias, su flor es de color rojo.',
+                  ),
+                  _paragraph(
+                    '1. La raíz sirve para curar el Dolor de riñón: se pone a '
+                    'cocer en 5 Lts. de agua y se toma como uso común. Se '
+                    'sigue el tratamiento el tiempo necesario mientras '
+                    'persista el malestar.',
+                  ),
+                  _paragraph(
+                    '2. Disentería: la choya se tatema en brazas, se le '
+                    'quitan los alguates y se comen con sal, puede comer la '
+                    'cantidad necesaria.',
+                  ),
+                  const _SectionHeading('Ocotillo'),
+                  _image('Ocotillo.jpg', 'Ocotillo', null),
+                  _paragraph(
+                    'Es una planta de zonas serranas sobre terreno pedregoso, '
+                    'crece a una altura de tres o cuatro metros, su cáscara es '
+                    'rugosa y pulposa de un color verde amarillento, se da en '
+                    'marzo y abril.',
+                  ),
+                  _paragraph(
+                    'Sarna: se utiliza la cáscara, se machaca muy bien y se '
+                    'le agrega sal. Con la mezcla se frota la zona afectada '
+                    'y deja sobre la herida utilizando un vendaje.',
+                  ),
+                  const _SectionHeading('Mezquite'),
+                  _image(
+                    'Mezquite.jpg',
+                    'Mezquite',
+                    'Prosopis velutina (Wooton) o mezquite. Fuente: Renatura '
+                        'Sonora. Fotógrafo: Narciso Navarro.',
+                  ),
+                  _paragraph(
+                    'Crece en las partes bajas de la sierra y en el valle; '
+                    'tiene una altura de cuatro a cinco metros, es de color '
+                    'verde obscuro y de corteza rugosa. Florea en el mes de '
+                    'abril en un color amarillo. El fruto se da en vaina '
+                    'mediate racimos.',
+                  ),
+                  _paragraph(
+                    '1. Dolor de muelas. – se corta un trozo de cáscara y se '
+                    'utiliza su pulpa y se coloca directamente en la muela '
+                    'picada como tapón.',
+                  ),
+                  _paragraph(
+                    '2. Nauseas.- se mastica su hoja y se traga el jugo.',
+                  ),
+                  _image(
+                    'Vinorama.jpg',
+                    'Vinorama',
+                    'Vinorama. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Sangregado.jpg',
+                    'Sangregado',
+                    'Sangregado. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Barchata.jpg',
+                    'Barchata',
+                    'Barchata. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Semilla-de-guasima.jpg',
+                    'Semilla de guásima',
+                    'Semilla de guásima. Museo Étnico de los Yaquis. Sala '
+                        'Medicina tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Rama-cenizo.jpg',
+                    'Rama cenizo',
+                    'Rama cenizo. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Fruto-de-sibiri.jpg',
+                    'Fruto de sibiri',
+                    'Fruto de sibiri. Museo Étnico de los Yaquis. Sala '
+                        'Medicina tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Nono.jpg',
+                    'Nóno',
+                    'Nóno. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Rocio.jpg',
+                    'Rocío',
+                    'Rocío. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Torote-prieto.jpg',
+                    'Torote prieto',
+                    'Torote prieto. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Batamote.jpg',
+                    'Batamote',
+                    'Batamote. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Wereke.jpg',
+                    'Wereke',
+                    'Wereke. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                  _image(
+                    'Chicura.jpg',
+                    'Chicura',
+                    'Chicura. Museo Étnico de los Yaquis. Sala Medicina '
+                        'tradicional. Fotógrafo: Juan Casanova',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
